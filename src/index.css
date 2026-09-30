@@ -3,48 +3,165 @@
 @tailwind utilities;
 
 :root {
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-display: 'Outfit', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Luminous Modern Light Theme Palette */
+  --color-command-950: 244 247 251; /* #F4F7FB Background */
+  --color-command-900: 255 255 255; /* #FFFFFF Pure White Cards */
+  --color-command-850: 248 250 252; /* #F8FAFC Subtle Light Surface */
+  --color-command-800: 241 245 249; /* #F1F5F9 Container background */
+  --color-command-750: 226 232 240; /* #E2E8F0 Interactive elements */
+  --color-command-700: 203 213 225; /* #CBD5E1 Borders & tracks */
+  --color-command-600: 148 163 184; /* #94A3B8 Muted icons */
+  --color-command-500: 100 116 139; /* #64748B Secondary text */
+  --color-command-border: 226 232 240; /* #E2E8F0 Card borders */
+  --color-command-border-light: 203 213 225;
+}
+
+/* Dark mode fallback variables */
+.dark {
+  --color-command-950: 6 10 17;
+  --color-command-900: 11 16 27;
+  --color-command-850: 15 22 38;
+  --color-command-800: 20 30 52;
+  --color-command-750: 26 39 68;
+  --color-command-700: 30 45 78;
+  --color-command-600: 42 60 102;
+  --color-command-500: 59 82 136;
+  --color-command-border: 30 44 72;
+  --color-command-border-light: 45 65 104;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #060A11;
-  color: #E2E8F0;
+  background-color: #F4F7FB;
+  color: #0F172A;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.dark body {
+  background-color: #060A11;
+  color: #E2E8F0;
+}
+
+/* Scoped Light Theme Text Overrides for Command Center Dashboard only */
+html:not(.dark) .command-app .text-slate-100,
+html:not(.dark) .command-app .text-white:not(.btn-text-white):not(.badge-white) {
+  color: #0F172A !important;
+}
+
+html:not(.dark) .command-app .text-slate-200 {
+  color: #1E293B !important;
+}
+
+html:not(.dark) .command-app .text-slate-300 {
+  color: #334155 !important;
+}
+
+html:not(.dark) .command-app .text-slate-400 {
+  color: #475569 !important;
+}
+
+html:not(.dark) .command-app .text-slate-500 {
+  color: #64748B !important;
+}
+
+/* Landing Showcase Pure White & Vibrant Colors Guaranteed */
+.landing-showcase,
+.landing-showcase * {
+  color-scheme: dark;
+}
+
+.landing-showcase .landing-title-white {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.landing-showcase .landing-text-white {
+  color: #FFFFFF !important;
+}
+
+.landing-showcase .landing-text-cyan {
+  color: #38BDF8 !important;
+}
+
+.landing-showcase .landing-text-muted {
+  color: #D1D5DB !important;
+}
+
+/* Crisp Headings */
 h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);
+  letter-spacing: -0.015em;
 }
 
 .font-mono {
   font-family: var(--font-mono);
 }
 
-/* Custom Scrollbars */
+/* Light Theme Card Shadows & Hover Behaviors */
+.glass-panel,
+[class*="bg-command-900"],
+[class*="bg-command-850"] {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(15, 23, 42, 0.03);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.glass-panel:hover,
+[class*="bg-command-900"]:hover,
+[class*="bg-command-850"]:hover {
+  border-color: rgba(2, 132, 199, 0.35);
+  box-shadow: 0 8px 24px -4px rgba(2, 132, 199, 0.10), 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Interactive Button Behaviors & Micro-animations */
+button, a, input, select {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Custom Clean Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+.dark ::-webkit-scrollbar-track {
   background: #0B101B;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1E2D4E;
+  background: #CBD5E1;
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #2D4168;
+.dark ::-webkit-scrollbar-thumb {
+  background: #1E2D4E;
 }
 
-/* Grid and Glow utilities */
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Grid Patterns */
 .bg-grid-pattern {
   background-size: 24px 24px;
+  background-image: 
+    linear-gradient(to right, rgba(203, 213, 225, 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(203, 213, 225, 0.5) 1px, transparent 1px);
+}
+
+.dark .bg-grid-pattern {
   background-image: 
     linear-gradient(to right, rgba(30, 45, 78, 0.25) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(30, 45, 78, 0.25) 1px, transparent 1px);
@@ -52,35 +169,7 @@ h1, h2, h3, h4, .font-display {
 
 .bg-dot-pattern {
   background-size: 16px 16px;
-  background-image: radial-gradient(rgba(56, 189, 248, 0.15) 1px, transparent 1px);
-}
-
-.glass-panel {
-  background: rgba(11, 16, 27, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(30, 44, 72, 0.9);
-}
-
-.glass-panel-hover {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-panel-hover:hover {
-  border-color: rgba(0, 240, 255, 0.4);
-  box-shadow: 0 4px 20px -2px rgba(0, 240, 255, 0.08);
-}
-
-.glow-cyan {
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
-}
-
-.glow-rose {
-  box-shadow: 0 0 15px rgba(255, 46, 86, 0.3);
-}
-
-.glow-amber {
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+  background-image: radial-gradient(rgba(2, 132, 199, 0.2) 1px, transparent 1px);
 }
 
 /* Radar Scan Line */
@@ -91,8 +180,8 @@ h1, h2, h3, h4, .font-display {
   width: 50%;
   height: 2px;
   transform-origin: 0 0;
-  background: linear-gradient(90deg, rgba(0, 240, 255, 0.8) 0%, rgba(0, 240, 255, 0) 100%);
-  box-shadow: 0 0 8px #00f0ff;
+  background: linear-gradient(90deg, rgba(2, 132, 199, 0.9) 0%, rgba(2, 132, 199, 0) 100%);
+  box-shadow: 0 0 8px #0284c7;
   animation: sweep 4s linear infinite;
 }
 
@@ -125,32 +214,55 @@ h1, h2, h3, h4, .font-display {
   }
 }
 
-/* Custom Tooltip Styling */
+/* Recharts Tooltip in Light Theme */
 .recharts-default-tooltip {
-  background-color: rgba(11, 16, 27, 0.95) !important;
-  border: 1px solid rgba(0, 240, 255, 0.3) !important;
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid #CBD5E1 !important;
   border-radius: 8px !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
   font-family: var(--font-sans) !important;
+  color: #0F172A !important;
   font-size: 12px !important;
 }
 
-/* Custom Leaflet Map Dark Styling */
+.dark .recharts-default-tooltip {
+  background-color: rgba(11, 16, 27, 0.95) !important;
+  border: 1px solid rgba(0, 240, 255, 0.3) !important;
+  color: #E2E8F0 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Leaflet Map Light Container */
 .leaflet-container {
-  background-color: #060a11 !important;
+  background-color: #E2E8F0 !important;
   font-family: var(--font-sans) !important;
 }
 
+.dark .leaflet-container {
+  background-color: #060a11 !important;
+}
+
 .leaflet-popup-content-wrapper {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  color: #0F172A !important;
+  border: 1px solid #0284C7 !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(8px) !important;
+  box-shadow: 0 8px 20px rgba(2, 132, 199, 0.15) !important;
+}
+
+.dark .leaflet-popup-content-wrapper {
   background-color: rgba(15, 23, 42, 0.95) !important;
   color: #e2e8f0 !important;
   border: 1px solid #00F0FF !important;
-  border-radius: 8px !important;
-  backdrop-filter: blur(8px) !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 240, 255, 0.2) !important;
 }
 
 .leaflet-popup-tip {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid #0284C7 !important;
+}
+
+.dark .leaflet-popup-tip {
   background-color: rgba(15, 23, 42, 0.95) !important;
   border: 1px solid #00F0FF !important;
 }

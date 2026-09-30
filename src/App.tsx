@@ -5,6 +5,7 @@ import { MobileNav } from './components/layout/MobileNav';
 import { GlobalSearchModal } from './components/modals/GlobalSearchModal';
 import { BulletinModal } from './components/modals/BulletinModal';
 
+import { ParjanyaLanding } from './pages/ParjanyaLanding';
 import { Overview } from './pages/Overview';
 import { BustRadar } from './pages/BustRadar';
 import { ConfidenceMap } from './pages/ConfidenceMap';
@@ -18,15 +19,19 @@ import { AlertCenter } from './pages/AlertCenter';
 import { Analytics } from './pages/Analytics';
 import { RegionDetail } from './pages/RegionDetail';
 
+import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { MeteorologicalSubdivision, LeadTimeDay, OperationalAlert } from './types';
 import { forecastService } from './services/forecastService';
 
-export const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<PageTab>('overview');
+const AppContent: React.FC = () => {
+  // Default to 'landing' as requested by user ("add these as a aminating image at the first page")
+  const [activeTab, setActiveTab] = useState<PageTab>('landing');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(true);
+  const { theme } = useTheme();
 
   // Selected subdivision state across app
   const [selectedSubdivision, setSelectedSubdivision] = useState<MeteorologicalSubdivision | null>(
@@ -71,12 +76,29 @@ export const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // When activeTab is 'landing', show full-screen animated Parjanya Hero Showcase
+  if (activeTab === 'landing') {
+    return (
+      <div className="h-screen w-screen overflow-hidden">
+        <ParjanyaLanding 
+          onExplore={() => handleNavigateToTab('overview')}
+          onNavigateToTab={handleNavigateToTab}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-command-950 text-slate-100 flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className={`command-app min-h-screen flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-200 transition-colors ${
+      theme === 'light' 
+        ? 'bg-[#F4F7FB] text-slate-900' 
+        : 'bg-command-950 text-slate-100'
+    }`}>
       {/* Top Global Navigation Bar */}
       <Navbar
         onOpenSearch={() => setSearchOpen(true)}
         onOpenAlerts={() => handleNavigateToTab('alerts')}
+        onGoToHome={() => handleNavigateToTab('landing')}
         sidebarOpen={mobileMenuOpen}
         setSidebarOpen={setMobileMenuOpen}
         audioEnabled={audioEnabled}
@@ -213,6 +235,16 @@ export const App: React.FC = () => {
         alert={bulletinAlert}
       />
     </div>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <LanguageProvider>
+        <AppContent />
+      </LanguageProvider>
+    </ThemeProvider>
   );
 };
 
