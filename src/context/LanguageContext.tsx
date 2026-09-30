@@ -75,9 +75,9 @@ export interface Translations {
 
 const translations: Record<Language, Translations> = {
   en: {
-    brandName: 'Parjanya AI',
+    brandName: 'Prajanya',
     brandTagline: 'AI-Based Forecast Bust Detection for NCMRWF/MoES',
-    appTitle: 'Parjanya Command Center',
+    appTitle: 'Prajanya Command Center',
     heroHeadline: 'Meteorological Confidence',
     heroSubtitle: 'AI-based bust detection for medium-range forecasts. Seamless integration with numerical weather models.',
     predictiveIntelligence: 'PREDICTIVE INTELLIGENCE',
@@ -94,7 +94,7 @@ const translations: Record<Language, Translations> = {
     chennai: 'CHENNAI',
     kolkata: 'KOLKATA',
     
-    navLanding: 'Parjanya Showcase',
+    navLanding: 'Prajanya Showcase',
     navOverview: 'Overview',
     navBustRadar: 'Bust Radar',
     navConfidenceMap: 'Confidence Map',
@@ -138,12 +138,12 @@ const translations: Record<Language, Translations> = {
     exportBulletin: 'Export Bulletin',
     close: 'Close',
     viewDetails: 'View Details',
-    backToHero: 'Parjanya Home'
+    backToHero: 'Prajanya Home'
   },
   mr: {
-    brandName: 'पर्जन्य एआय (Parjanya AI)',
+    brandName: 'प्रजन्य (Prajanya)',
     brandTagline: 'NCMRWF/MoES साठी एआय-आधारित अंदाज अपयश शोध प्रणाली',
-    appTitle: 'पर्जन्य नियंत्रण कक्ष',
+    appTitle: 'प्रजन्य नियंत्रण कक्ष',
     heroHeadline: 'हवामानशास्त्रीय विश्वासार्हता',
     heroSubtitle: 'मध्यम पल्ल्याच्या हवामान अंदाजांसाठी एआय-आधारित बस्ट (अपयश) शोध प्रणाली. गणितीय मॉडेल्ससोबत अखंड जोडणी.',
     predictiveIntelligence: 'पूर्वानुमान बुद्धिमत्ता',
@@ -160,7 +160,7 @@ const translations: Record<Language, Translations> = {
     chennai: 'चेन्नई',
     kolkata: 'कोलकाता',
     
-    navLanding: 'पर्जन्य मुख्य पृष्ठ',
+    navLanding: 'प्रजन्य मुख्य पृष्ठ',
     navOverview: 'विहंगावलोकन',
     navBustRadar: 'बस्ट रडार (Bust Radar)',
     navConfidenceMap: 'विश्वासार्हता नकाशा',
@@ -204,12 +204,12 @@ const translations: Record<Language, Translations> = {
     exportBulletin: 'बुलेटिन डाउनलोड करा',
     close: 'बंद करा',
     viewDetails: 'तपशील पहा',
-    backToHero: 'पर्जन्य शोकेस'
+    backToHero: 'प्रजन्य शोकेस'
   },
   hi: {
-    brandName: 'पर्जन्य एआई (Parjanya AI)',
+    brandName: 'प्रजन्य (Prajanya)',
     brandTagline: 'NCMRWF/MoES के लिए एआई-आधारित पूर्वानुमान विफलता पहचान प्रणाली',
-    appTitle: 'पर्जन्य नियंत्रण केंद्र',
+    appTitle: 'प्रजन्य नियंत्रण केंद्र',
     heroHeadline: 'मौसम संबंधी विश्वसनीयता',
     heroSubtitle: 'मध्यम-अवधि के मौसम पूर्वानुमानों के लिए एआई-आधारित बस्ट (विफलता) पहचान। गणितीय मौसम मॉडलों के साथ निर्बाध एकीकरण।',
     predictiveIntelligence: 'पूर्वानुमानित बुद्धिमत्ता',
@@ -226,7 +226,7 @@ const translations: Record<Language, Translations> = {
     chennai: 'चेन्नई',
     kolkata: 'कोलकाता',
     
-    navLanding: 'पर्जन्य मुख्य पृष्ठ',
+    navLanding: 'प्रजन्य मुख्य पृष्ठ',
     navOverview: 'अवलोकन',
     navBustRadar: 'बस्ट रडार (Bust Radar)',
     navConfidenceMap: 'विश्वसनीयता मानचित्र',
@@ -270,7 +270,7 @@ const translations: Record<Language, Translations> = {
     exportBulletin: 'बुलेटिन निर्यात करें',
     close: 'बंद करें',
     viewDetails: 'विवरण देखें',
-    backToHero: 'पर्जन्य होम'
+    backToHero: 'प्रजन्य होम'
   }
 };
 
@@ -284,13 +284,13 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem('parjanya_lang') as Language;
+    const saved = localStorage.getItem('prajanya_lang') as Language;
     return saved && ['en', 'mr', 'hi'].includes(saved) ? saved : 'en';
   });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('parjanya_lang', lang);
+    localStorage.setItem('prajanya_lang', lang);
   };
 
   const t = translations[language];

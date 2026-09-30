@@ -13,7 +13,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
     const saved = localStorage.getItem('parjanya_theme') as Theme;
-    return saved && (saved === 'dark' || saved === 'light') ? saved : 'light'; // Default to light mode
+    return saved && (saved === 'dark' || saved === 'light') ? saved : 'dark'; // Default to dark mode
   });
 
   useEffect(() => {
